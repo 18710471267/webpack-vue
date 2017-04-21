@@ -10,6 +10,19 @@ var compiler = webpack({
         path:"/",
         filename:"dist/bundle.js"
     },
+    resolve:{
+        alias:{
+            'vue$':'vue/dist/vue'
+        }
+    },
+    module:{
+        loaders:[
+            {
+                test:/\.vue$/,
+                loader:'vue-loader'   
+            }
+        ]
+    },
     plugins:[
         new htmlWebpackPlugin({
             filename:"index.html",
@@ -17,7 +30,12 @@ var compiler = webpack({
         })
     ]
 })
-var middleWare = require('webpack-dev-middleware')(compiler,{})
+var middleWare = require('webpack-dev-middleware')(compiler,{
+    stats:{
+        colors:true,//为日志设置颜色
+        chunks:false//设置不显示块编译输出
+    }
+})
 app.use(middleWare)
 app.listen(port,function(){
     opn("http://localhost:"+port)
