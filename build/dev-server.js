@@ -3,33 +3,8 @@ var express = require('express')
 var opn = require('opn')
 var app = express()
 var port=9090
-var htmlWebpackPlugin = require('html-webpack-plugin')
-var compiler = webpack({
-    entry:'./src/entry.js',
-    output:{
-        path:"/",
-        filename:"dist/bundle.js"
-    },
-    resolve:{
-        alias:{
-            'vue$':'vue/dist/vue'
-        }
-    },
-    module:{
-        loaders:[
-            {
-                test:/\.vue$/,
-                loader:'vue-loader'   
-            }
-        ]
-    },
-    plugins:[
-        new htmlWebpackPlugin({
-            filename:"index.html",
-            template:"index.html"
-        })
-    ]
-})
+
+var compiler = webpack(require('./webpack.base.conf'))
 var middleWare = require('webpack-dev-middleware')(compiler,{
     stats:{
         colors:true,//为日志设置颜色
