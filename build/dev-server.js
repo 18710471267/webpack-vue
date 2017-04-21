@@ -12,6 +12,7 @@ var middleWare = require('webpack-dev-middleware')(compiler,{
     }
 })
 app.use(middleWare)
+app.use('/static',express.static('./static'))
 app.listen(port,function(){
     opn("http://localhost:"+port)
 })
