@@ -2,7 +2,7 @@ var webpack = require('webpack')
 var express = require('express')
 var opn = require('opn')
 var app = express()
-var port=9090
+
 var config = require('../config')
 var proxyMiddleware = require('http-proxy-middleware')
 
@@ -23,6 +23,8 @@ Object.keys(proxyTable).forEach(function (context) {
   }
   app.use(proxyMiddleware(context, options))
 })
+var port = config.dev.port
+var uri = 'http://localhost:' + port
 app.listen(port,function(){
-    opn("http://localhost:"+port)
+    opn(uri)
 })
